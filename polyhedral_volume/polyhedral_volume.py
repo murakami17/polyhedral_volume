@@ -99,7 +99,30 @@ class PolyhedralVolume(object):
         tetra_c = self.tetrahedral((f, b, c, d))
         tetra_d = self.tetrahedral((f, b, d, e))
         return tetra_a + tetra_b + tetra_c + tetra_d
-
+    
+    def cubic(self, sites):
+        """
+        Calculates volume of cubic cluster from atomic coordinates.
+        
+        Arguments
+        ---------
+        sites: tuple of int
+            Atomic sites which consists of octahedral cluster.
+        
+        Parameters
+        ----------
+        a, b, c, d, e, f, g, h: int
+            Atomic sites which consists of octahedral cluster.
+        octa_a, octa_b: float
+            Volume of the octahedral cluster consists of cubic cluster.
+        
+        Returns
+        -------
+        float: Volume of the cubic cluster.
+        """
+        if len(sites) is not 8:
+            raise ValueError("Cubic cluster consists of only eight atoms.")
+        pass
 
 if __name__ == "__main__":
     pass
