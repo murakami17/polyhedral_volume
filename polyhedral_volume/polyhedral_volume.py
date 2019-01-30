@@ -122,7 +122,17 @@ class PolyhedralVolume(object):
         """
         if len(sites) is not 8:
             raise ValueError("Cubic cluster consists of only eight atoms.")
-        pass
+        a = sites[0]
+        b = sites[1]
+        c = sites[2]
+        d = sites[3]
+        e = sites[4]
+        f = sites[5]
+        g = sites[6]
+        h = sites[7]
+        octa_a = self.octahedral((a, b, c, d, e, f))
+        octa_b = self.octahedral((a, b, c, d, g, h))
+        return octa_a + octa_b
 
 if __name__ == "__main__":
     pass
