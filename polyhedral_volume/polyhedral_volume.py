@@ -113,8 +113,8 @@ class PolyhedralVolume(object):
         ----------
         a, b, c, d, e, f, g, h: int
             Atomic sites which consists of octahedral cluster.
-        octa_a, octa_b: float
-            Volume of the octahedral cluster consists of cubic cluster.
+        tetra_a, tetra_b, tetra_c, tetra_d, tetra_e, tetra_f: float
+            Volume of the tetrahedral cluster consists of cubic cluster.
         
         Returns
         -------
@@ -130,9 +130,16 @@ class PolyhedralVolume(object):
         f = sites[5]
         g = sites[6]
         h = sites[7]
-        octa_a = self.octahedral((a, b, c, d, e, f))
-        octa_b = self.octahedral((a, b, c, d, g, h))
-        return octa_a + octa_b
-
+        """Under construction
+        tetra_a = self.tetrahedral((a, b, c, d))
+        tetra_b = self.tetrahedral((d, e, f, g))
+        tetra_c = self.tetrahedral((g, h, a, b))
+        tetra_d = self.tetrahedral((b, c, d, e))
+        tetra_e = self.tetrahedral((e, h, g, f))
+        tetra_f = self.tetrahedral((f, a, b, c))
+        return tetra_a + tetra_b + tetra_c + tetra_d + tetra_e + tetra_f
+        """
+        pass
+        
 if __name__ == "__main__":
     pass
