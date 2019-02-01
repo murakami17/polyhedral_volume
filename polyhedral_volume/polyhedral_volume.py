@@ -32,7 +32,7 @@ class PolyhedralVolume(object):
         """
         self.struct = struct
         
-    def tetrahedral(self, sites):
+    def tetrahedron(self, sites):
         """
         Calculates volume of tetrahedral cluster from atomic coordinates.
         
@@ -66,7 +66,7 @@ class PolyhedralVolume(object):
         array = numpy.array([ab, ac, ad])
         return abs(numpy.linalg.det(array)) / 6
     
-    def octahedral(self, sites):
+    def octahedron(self, sites):
         """
         Calculates volume of octahedral cluster from atomic coordinates.
         
@@ -94,10 +94,10 @@ class PolyhedralVolume(object):
         d = sites[3]
         e = sites[4]
         f = sites[5]
-        tetra_a = self.tetrahedral((a, b, c, d))
-        tetra_b = self.tetrahedral((a, b, d, e))
-        tetra_c = self.tetrahedral((f, b, c, d))
-        tetra_d = self.tetrahedral((f, b, d, e))
+        tetra_a = self.tetrahedron((a, b, c, d))
+        tetra_b = self.tetrahedron((a, b, d, e))
+        tetra_c = self.tetrahedron((f, b, c, d))
+        tetra_d = self.tetrahedron((f, b, d, e))
         return tetra_a + tetra_b + tetra_c + tetra_d
     
     def cubic(self, sites):
@@ -131,12 +131,12 @@ class PolyhedralVolume(object):
         g = sites[6]
         h = sites[7]
         """Under construction
-        tetra_a = self.tetrahedral((a, b, c, d))
-        tetra_b = self.tetrahedral((d, e, f, g))
-        tetra_c = self.tetrahedral((g, h, a, b))
-        tetra_d = self.tetrahedral((b, c, d, e))
-        tetra_e = self.tetrahedral((e, h, g, f))
-        tetra_f = self.tetrahedral((f, a, b, c))
+        tetra_a = self.tetrahedron((a, b, c, d))
+        tetra_b = self.tetrahedron((d, e, f, g))
+        tetra_c = self.tetrahedron((g, h, a, b))
+        tetra_d = self.tetrahedron((b, c, d, e))
+        tetra_e = self.tetrahedron((e, h, g, f))
+        tetra_f = self.tetrahedron((f, a, b, c))
         return tetra_a + tetra_b + tetra_c + tetra_d + tetra_e + tetra_f
         """
         pass
