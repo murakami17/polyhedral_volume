@@ -74,31 +74,38 @@ class PolyhedralVolume(object):
         ---------
         sites: tuple of int
             Atomic sites which consists of octahedral cluster.
+        sites_position: tuple of tuple of int (0-7)
+            Tuple of atomic sites which form triangle cluster in octahedron.
         
         Parameters
         ----------
-        a, b, c, d, e, f: int
-            Atomic sites which consists of octahedral cluster.
-        tetra_a, tetra_b, tetra_c, tetra_d: float
-            Volume of the tetrahedral cluster consists of octahedral cluster.
+        coords: list of numpy.array
+            Atomic coordinates of atoms which form octahedral cluster.
+        volume: float
+            Calculated volume of octahedron.
         
         Returns
         -------
-        float: Volume of the octahedral cluster.
+        volume: float
+            Calculated volume of the octahedral cluster.
         """
         if len(sites) is not 6:
             raise ValueError("Octahedral cluster consists of only six atoms.")
-        a = sites[0]
-        b = sites[1]
-        c = sites[2]
-        d = sites[3]
-        e = sites[4]
-        f = sites[5]
-        tetra_a = self.tetrahedron((a, b, c, d))
-        tetra_b = self.tetrahedron((a, b, d, e))
-        tetra_c = self.tetrahedron((f, b, c, d))
-        tetra_d = self.tetrahedron((f, b, d, e))
-        return tetra_a + tetra_b + tetra_c + tetra_d
+        
+        coords = []
+        for site in sites:
+            coords.append(self.struct.cart_coords[site])
+        
+        gravity = self._calc_center_of_gravity(coords)
+        
+        volume = 0
+        for triangle in sites_position:
+            coords_list = [gravity]
+            for site in triangle:
+                coords_list.append(coords[site])
+            volume += tetrahedron(coords_list)
+        
+        return volume
     
     def cubic(self, sites):
         """
@@ -140,6 +147,29 @@ class PolyhedralVolume(object):
         return tetra_a + tetra_b + tetra_c + tetra_d + tetra_e + tetra_f
         """
         pass
+    
+    def _calc_center_of_gravity(self, coords):
+        """
+        Calculates center of gravity.
         
+        Arguments
+        ---------
+        coords: list of numpy.array
+            Atomic coordinates which form cluster.
+        
+        Parameters
+        ----------
+        coords_sum: numpy.array
+            Summention of atomic coordinates which form cluster.
+        
+        Returns
+        -------
+        numpy.array: Coordinates of centern of gravity of cluster.
+        """
+        coords_sum = numpy.zeros(3)
+        for coord in coords:
+            coords_sum += coords
+        return coords_sum / len(coords)
+    
 if __name__ == "__main__":
     pass
