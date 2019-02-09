@@ -32,21 +32,19 @@ class PolyhedralVolume(object):
         """
         self.struct = struct
         
-    def tetrahedron(self, sites):
+    def tetrahedron(self, coords):
         """
         Calculates volume of tetrahedral cluster from atomic coordinates.
         
         Arguments
         ---------
-        sites: tuple of int
-            Atomic sites which consists tetrahedral cluster.
+        coords: list of numpy.array
+            Atomic coordinates of atoms which form octahedral cluster.
         
         Parameters
         ----------
-        a, b, c, d: numpy.array
-            Atomic coordinates which consists tetrahedral cluster.
         ab, ac, ad: numpy.array
-            Position vector of b-d atoms from a atom.
+            Position vector of coords[3 - 1] atoms from coords[0] atom.
         array: numpy.array
             Array of position vectors ab-ad.
         
@@ -56,14 +54,13 @@ class PolyhedralVolume(object):
         """
         if len(sites) is not 4:
             raise ValueError("Tetrahedral cluster consists of only four atoms.")
-        a = self.struct.cart_coords[sites[0]]
-        b = self.struct.cart_coords[sites[1]]
-        c = self.struct.cart_coords[sites[2]]
-        d = self.struct.cart_coords[sites[3]]
-        ab = b - a
-        ac = c - a
-        ad = d - a
+        
+        ab = coords[1] - coords[0]
+        ac = coords[2] - coords[0]
+        ad = coords[3] - coords[0]
+        
         array = numpy.array([ab, ac, ad])
+        
         return abs(numpy.linalg.det(array)) / 6
     
     def octahedron(self, sites):
