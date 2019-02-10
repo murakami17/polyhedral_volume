@@ -104,46 +104,46 @@ class PolyhedralVolume(object):
         
         return volume
     
-    def cubic(self, sites):
+    def cubic(self, sites, sites_position):
         """
         Calculates volume of cubic cluster from atomic coordinates.
         
         Arguments
         ---------
         sites: tuple of int
-            Atomic sites which consists of octahedral cluster.
+            Atomic sites which consists of cubic cluster.
+        sites_position: tuple of tuple of int (0-6)
+            Tuple of atomic sites which form triangle cluster in cubic.
         
         Parameters
         ----------
-        a, b, c, d, e, f, g, h: int
-            Atomic sites which consists of octahedral cluster.
-        tetra_a, tetra_b, tetra_c, tetra_d, tetra_e, tetra_f: float
-            Volume of the tetrahedral cluster consists of cubic cluster.
+        coords: list of numpy.array
+            Atomic coordinates of atoms which form cubic cluster.
+        volume: float
+            Calculated volume of cubic.
         
         Returns
         -------
-        float: Volume of the cubic cluster.
+        volume: float
+            Calculated volume of the cubic cluster.
         """
         if len(sites) is not 8:
             raise ValueError("Cubic cluster consists of only eight atoms.")
-        a = sites[0]
-        b = sites[1]
-        c = sites[2]
-        d = sites[3]
-        e = sites[4]
-        f = sites[5]
-        g = sites[6]
-        h = sites[7]
-        """Under construction
-        tetra_a = self.tetrahedron((a, b, c, d))
-        tetra_b = self.tetrahedron((d, e, f, g))
-        tetra_c = self.tetrahedron((g, h, a, b))
-        tetra_d = self.tetrahedron((b, c, d, e))
-        tetra_e = self.tetrahedron((e, h, g, f))
-        tetra_f = self.tetrahedron((f, a, b, c))
-        return tetra_a + tetra_b + tetra_c + tetra_d + tetra_e + tetra_f
-        """
-        pass
+        
+        coords = []
+        for site in sites:
+            coords.append(self.struct.cart_coords[site])
+        
+        gravity = self._calc_center_of_gravity(coords)
+        
+        volume = 0
+        for triangle in sites_position:
+            coords_list = [gravity]
+            for site in triangle:
+                coords_list.append(coords[site])
+            volume += tetrahedron(coords_list)
+        
+        return volume
     
     def _calc_center_of_gravity(self, coords):
         """
