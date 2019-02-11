@@ -63,7 +63,7 @@ class PolyhedralVolume(object):
         
         return abs(numpy.linalg.det(array)) / 6
     
-    def octahedron(self, sites):
+    def octahedron(self, sites, sites_position):
         """
         Calculates volume of octahedral cluster from atomic coordinates.
         
