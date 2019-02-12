@@ -165,7 +165,7 @@ class PolyhedralVolume(object):
         """
         coords_sum = numpy.zeros(3)
         for coord in coords:
-            coords_sum += coords
+            coords_sum += coord
         return coords_sum / len(coords)
     
 if __name__ == "__main__":
