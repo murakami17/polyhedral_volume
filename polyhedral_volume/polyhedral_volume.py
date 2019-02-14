@@ -52,7 +52,7 @@ class PolyhedralVolume(object):
         -------
         float: Volume of the tetrahedral cluster.
         """
-        if len(sites) is not 4:
+        if len(coords) is not 4:
             raise ValueError("Tetrahedral cluster consists of only four atoms.")
         
         ab = coords[1] - coords[0]
