@@ -141,7 +141,7 @@ class PolyhedralVolume(object):
             coords_list = [gravity]
             for site in triangle:
                 coords_list.append(coords[site])
-            volume += tetrahedron(coords_list)
+            volume += self.tetrahedron(coords_list)
         
         return volume
     
