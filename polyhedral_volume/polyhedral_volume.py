@@ -168,5 +168,11 @@ class PolyhedralVolume(object):
             coords_sum += coord
         return coords_sum / len(coords)
     
+    def _trans_periodic_coords(self, sites):
+        """
+        Translate periodical atomic coordinates in range -5 < r <=5.
+        """
+        pass
+    
 if __name__ == "__main__":
     pass
