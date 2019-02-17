@@ -171,8 +171,25 @@ class PolyhedralVolume(object):
     def _trans_periodic_coords(self, sites):
         """
         Translate periodical atomic coordinates in range -5 < r <=5.
+        
+        Arguments
+        ---------
+        
+        Parameters
+        ----------
+        
         """
-        pass
+        for site in sites:
+            site_dict = pymatgen.sites.PeriodicSite.as_dict(self.struct.sites[site])
+            for i in range(3):
+                if site_dict["abc"][i] > 0.5:
+                    site_dict["abc"][i] -= 1
+                elif site_dict["abc"][i] < -0.5:
+                    site_dict["abc"][i] += 1
+                else
+                    pass
+            self.struct.sites[site] = pymatgen.sites.PeriodicSite.from_dict(site_dict)
+        
     
 if __name__ == "__main__":
     pass
