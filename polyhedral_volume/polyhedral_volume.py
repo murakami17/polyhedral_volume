@@ -170,14 +170,17 @@ class PolyhedralVolume(object):
     
     def _trans_periodic_coords(self, sites):
         """
-        Translate periodical atomic coordinates in range -5 < r <=5.
+        Translate periodical atomic coordinates in range -0.5 < r <= 0.5.
         
         Arguments
         ---------
+        sites: tuple of int
+            Atomic sites which consists of cluster.
         
         Parameters
         ----------
-        
+        site_dict: dict
+            Site information with dict-type which can be edited easily.
         """
         for site in sites:
             site_dict = pymatgen.sites.PeriodicSite.as_dict(self.struct.sites[site])
