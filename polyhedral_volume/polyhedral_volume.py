@@ -184,7 +184,7 @@ class PolyhedralVolume(object):
         """
         for site in sites:
             site_dict = pymatgen.sites.PeriodicSite.as_dict(self.struct.sites[site])
-            for i in range(3):
+            for i in len(site_dict["abc"]):
                 if site_dict["abc"][i] > 0.5:
                     site_dict["abc"][i] -= 1
                 elif site_dict["abc"][i] < -0.5:
