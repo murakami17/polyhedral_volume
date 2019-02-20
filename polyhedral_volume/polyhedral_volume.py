@@ -89,6 +89,8 @@ class PolyhedralVolume(object):
         if len(sites) is not 6:
             raise ValueError("Octahedral cluster consists of only six atoms.")
         
+        self._trans_periodic_coords(sites)
+        
         coords = []
         for site in sites:
             coords.append(self.struct.cart_coords[site])
@@ -129,6 +131,8 @@ class PolyhedralVolume(object):
         """
         if len(sites) is not 8:
             raise ValueError("Cubic cluster consists of only eight atoms.")
+        
+        self._trans_periodic_coords(sites)
         
         coords = []
         for site in sites:
