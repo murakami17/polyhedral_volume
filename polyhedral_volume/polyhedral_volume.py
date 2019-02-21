@@ -187,15 +187,16 @@ class PolyhedralVolume(object):
             Site information with dict-type which can be edited easily.
         """
         for site in sites:
-            site_dict = pymatgen.sites.PeriodicSite.as_dict(self.struct.sites[site])
-            for i in len(site_dict["abc"]):
+            site_dict = self.struct.sites[site].as_dict()
+            for i in range(len(site_dict["abc"])):
                 if site_dict["abc"][i] > 0.5:
                     site_dict["abc"][i] -= 1
                 elif site_dict["abc"][i] < -0.5:
                     site_dict["abc"][i] += 1
-                else
+                else:
                     pass
             self.struct.sites[site] = pymatgen.sites.PeriodicSite.from_dict(site_dict)
+            print(self.struct.sites[site])
         
     
 if __name__ == "__main__":
