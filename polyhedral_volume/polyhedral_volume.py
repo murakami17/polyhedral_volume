@@ -89,8 +89,6 @@ class PolyhedralVolume(object):
         if len(sites) is not 6:
             raise ValueError("Octahedral cluster consists of only six atoms.")
         
-        self._trans_periodic_coords(sites)
-        
         coords = []
         for site in sites:
             coords.append(self.struct.cart_coords[site])
@@ -132,8 +130,6 @@ class PolyhedralVolume(object):
         if len(sites) is not 8:
             raise ValueError("Cubic cluster consists of only eight atoms.")
         
-        self._trans_periodic_coords(sites)
-        
         coords = []
         for site in sites:
             coords.append(self.struct.cart_coords[site])
@@ -172,32 +168,6 @@ class PolyhedralVolume(object):
             coords_sum += coord
         return coords_sum / len(coords)
     
-    def _trans_periodic_coords(self, sites):
-        """
-        Translate periodical atomic coordinates in range -0.5 < r <= 0.5.
-        
-        Arguments
-        ---------
-        sites: tuple of int
-            Atomic sites which consists of cluster.
-        
-        Parameters
-        ----------
-        site_dict: dict
-            Site information with dict-type which can be edited easily.
-        """
-        for site in sites:
-            site_dict = self.struct.sites[site].as_dict()
-            for i in range(len(site_dict["abc"])):
-                if site_dict["abc"][i] > 0.5:
-                    site_dict["abc"][i] -= 1
-                elif site_dict["abc"][i] < -0.5:
-                    site_dict["abc"][i] += 1
-                else:
-                    pass
-            self.struct.sites[site] = pymatgen.sites.PeriodicSite.from_dict(site_dict)
-            print(self.struct.sites[site])
-        
-    
+
 if __name__ == "__main__":
     pass
